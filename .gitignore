@@ -1,3 +1,5 @@
 /*.user
 /*.ncb
 /*.suo
+/Debug
+/x64
