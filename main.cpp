@@ -109,7 +109,7 @@ void PrintQueue(const CalendarInterrupt::TimePriorityQueue& queue)
 {
     CalendarInterrupt::TimePriorityQueue copy_queue = queue;
 
-    std::string print_str = "[队列中等待中断的时间点]";
+    std::string print_str = "[队列中等待中断的时间点]\n";
 
     while(!copy_queue.empty())
     {
@@ -117,7 +117,7 @@ void PrintQueue(const CalendarInterrupt::TimePriorityQueue& queue)
         tm timeinfo;
         localtime_s(&timeinfo, &t);
         char time_buf[100] = {};
-        strftime(time_buf,100,"[%Y-%m-%d %H:%M:%S]", &timeinfo);
+        strftime(time_buf,100,"[%Y-%m-%d %H:%M:%S]\n", &timeinfo);
         print_str += time_buf;
         copy_queue.pop();
     }
@@ -130,9 +130,9 @@ int main()
 {
     CalendarInterrupt calendar_interrupt;
     calendar_interrupt.AddTimePoint("143035");
-    calendar_interrupt.AddTimePoint("151820");
-    calendar_interrupt.AddTimePoint("151840");
-    calendar_interrupt.AddTimePoint("151841");
+    calendar_interrupt.AddTimePoint("154720");
+    calendar_interrupt.AddTimePoint("154740");
+    calendar_interrupt.AddTimePoint("154741");
     
     while(calendar_interrupt.BlockToNextTimePoint())
     {
@@ -143,6 +143,8 @@ int main()
         char time_buf[100] = {};
         strftime(time_buf,100,"%Y-%m-%d %H:%M:%S", &timeinfo);
         std::cout << "当前中断的时间点:" << time_buf << std::endl;
+
+        PrintQueue(calendar_interrupt.GetTimePointsQueue());
     }
 
     return 0;
